@@ -396,10 +396,6 @@ void EditorPropertyArray::update_property() {
 			prop->update_property();
 		}
 
-		if (reorder_to_index % page_length > 0) {
-			vbox->move_child(vbox->get_child(2), reorder_to_index % page_length + 2);
-		}
-
 		updating = false;
 
 	} else {
@@ -605,6 +601,10 @@ void EditorPropertyArray::_reorder_button_gui_input(const Ref<InputEvent> &p_eve
 		int size = array.call("size");
 
 		if ((reorder_to_index == 0 && mm->get_relative().y < 0.0f) || (reorder_to_index == size - 1 && mm->get_relative().y > 0.0f)) {
+			// Have to reset, otherwise, for example, if `reorder_to_index` is `size - 1` and they
+			// drag down a bunch and then drag up a tiny bit it'll move the property down because
+			// of all the accumulated downwards motion.
+			reorder_mouse_y_delta = 0.0f;
 			return;
 		}
 
