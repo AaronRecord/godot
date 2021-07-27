@@ -554,20 +554,20 @@ void EditorPlugin::notify_resource_saved(const Ref<Resource> &p_resource) {
 
 bool EditorPlugin::forward_canvas_gui_input(const Ref<InputEvent> &p_event) {
 	if (get_script_instance() && get_script_instance()->has_method("_forward_canvas_gui_input")) {
-		return get_script_instance()->call("_forward_canvas_gui_input", p_event);
+		return get_script_instance()->call(SNAME("_forward_canvas_gui_input"), p_event);
 	}
 	return false;
 }
 
 void EditorPlugin::forward_canvas_draw_over_viewport(Control *p_overlay) {
 	if (get_script_instance() && get_script_instance()->has_method("_forward_canvas_draw_over_viewport")) {
-		get_script_instance()->call("_forward_canvas_draw_over_viewport", p_overlay);
+		get_script_instance()->call(SNAME("_forward_canvas_draw_over_viewport"), p_overlay);
 	}
 }
 
 void EditorPlugin::forward_canvas_force_draw_over_viewport(Control *p_overlay) {
 	if (get_script_instance() && get_script_instance()->has_method("_forward_canvas_force_draw_over_viewport")) {
-		get_script_instance()->call("_forward_canvas_force_draw_over_viewport", p_overlay);
+		get_script_instance()->call(SNAME("_forward_canvas_force_draw_over_viewport"), p_overlay);
 	}
 }
 
@@ -592,7 +592,7 @@ int EditorPlugin::update_overlays() const {
 
 bool EditorPlugin::forward_spatial_gui_input(Camera3D *p_camera, const Ref<InputEvent> &p_event) {
 	if (get_script_instance() && get_script_instance()->has_method("_forward_spatial_gui_input")) {
-		return get_script_instance()->call("_forward_spatial_gui_input", p_camera, p_event);
+		return get_script_instance()->call(SNAME("_forward_spatial_gui_input"), p_camera, p_event);
 	}
 
 	return false;
@@ -600,19 +600,19 @@ bool EditorPlugin::forward_spatial_gui_input(Camera3D *p_camera, const Ref<Input
 
 void EditorPlugin::forward_spatial_draw_over_viewport(Control *p_overlay) {
 	if (get_script_instance() && get_script_instance()->has_method("_forward_spatial_draw_over_viewport")) {
-		get_script_instance()->call("_forward_spatial_draw_over_viewport", p_overlay);
+		get_script_instance()->call(SNAME("_forward_spatial_draw_over_viewport"), p_overlay);
 	}
 }
 
 void EditorPlugin::forward_spatial_force_draw_over_viewport(Control *p_overlay) {
 	if (get_script_instance() && get_script_instance()->has_method("_forward_spatial_force_draw_over_viewport")) {
-		get_script_instance()->call("_forward_spatial_force_draw_over_viewport", p_overlay);
+		get_script_instance()->call(SNAME("_forward_spatial_force_draw_over_viewport"), p_overlay);
 	}
 }
 
 String EditorPlugin::get_name() const {
 	if (get_script_instance() && get_script_instance()->has_method("_get_plugin_name")) {
-		return get_script_instance()->call("_get_plugin_name");
+		return get_script_instance()->call(SNAME("_get_plugin_name"));
 	}
 
 	return String();
@@ -620,7 +620,7 @@ String EditorPlugin::get_name() const {
 
 const Ref<Texture2D> EditorPlugin::get_icon() const {
 	if (get_script_instance() && get_script_instance()->has_method("_get_plugin_icon")) {
-		return get_script_instance()->call("_get_plugin_icon");
+		return get_script_instance()->call(SNAME("_get_plugin_icon"));
 	}
 
 	return Ref<Texture2D>();
@@ -628,7 +628,7 @@ const Ref<Texture2D> EditorPlugin::get_icon() const {
 
 bool EditorPlugin::has_main_screen() const {
 	if (get_script_instance() && get_script_instance()->has_method("_has_main_screen")) {
-		return get_script_instance()->call("_has_main_screen");
+		return get_script_instance()->call(SNAME("_has_main_screen"));
 	}
 
 	return false;
@@ -636,23 +636,23 @@ bool EditorPlugin::has_main_screen() const {
 
 void EditorPlugin::make_visible(bool p_visible) {
 	if (get_script_instance() && get_script_instance()->has_method("_make_visible")) {
-		get_script_instance()->call("_make_visible", p_visible);
+		get_script_instance()->call(SNAME("_make_visible"), p_visible);
 	}
 }
 
 void EditorPlugin::edit(Object *p_object) {
 	if (get_script_instance() && get_script_instance()->has_method("_edit")) {
 		if (p_object->is_class("Resource")) {
-			get_script_instance()->call("_edit", Ref<Resource>(Object::cast_to<Resource>(p_object)));
+			get_script_instance()->call(SNAME("_edit"), Ref<Resource>(Object::cast_to<Resource>(p_object)));
 		} else {
-			get_script_instance()->call("_edit", p_object);
+			get_script_instance()->call(SNAME("_edit"), p_object);
 		}
 	}
 }
 
 bool EditorPlugin::handles(Object *p_object) const {
 	if (get_script_instance() && get_script_instance()->has_method("_handles")) {
-		return get_script_instance()->call("_handles", p_object);
+		return get_script_instance()->call(SNAME("_handles"), p_object);
 	}
 
 	return false;
@@ -660,7 +660,7 @@ bool EditorPlugin::handles(Object *p_object) const {
 
 Dictionary EditorPlugin::get_state() const {
 	if (get_script_instance() && get_script_instance()->has_method("_get_state")) {
-		return get_script_instance()->call("_get_state");
+		return get_script_instance()->call(SNAME("_get_state"));
 	}
 
 	return Dictionary();
@@ -668,33 +668,33 @@ Dictionary EditorPlugin::get_state() const {
 
 void EditorPlugin::set_state(const Dictionary &p_state) {
 	if (get_script_instance() && get_script_instance()->has_method("_set_state")) {
-		get_script_instance()->call("_set_state", p_state);
+		get_script_instance()->call(SNAME("_set_state"), p_state);
 	}
 }
 
 void EditorPlugin::clear() {
 	if (get_script_instance() && get_script_instance()->has_method("_clear")) {
-		get_script_instance()->call("_clear");
+		get_script_instance()->call(SNAME("_clear"));
 	}
 }
 
 // if editor references external resources/scenes, save them
 void EditorPlugin::save_external_data() {
 	if (get_script_instance() && get_script_instance()->has_method("_save_external_data")) {
-		get_script_instance()->call("_save_external_data");
+		get_script_instance()->call(SNAME("_save_external_data"));
 	}
 }
 
 // if changes are pending in editor, apply them
 void EditorPlugin::apply_changes() {
 	if (get_script_instance() && get_script_instance()->has_method("_apply_changes")) {
-		get_script_instance()->call("_apply_changes");
+		get_script_instance()->call(SNAME("_apply_changes"));
 	}
 }
 
 void EditorPlugin::get_breakpoints(List<String> *p_breakpoints) {
 	if (get_script_instance() && get_script_instance()->has_method("_get_breakpoints")) {
-		PackedStringArray arr = get_script_instance()->call("_get_breakpoints");
+		PackedStringArray arr = get_script_instance()->call(SNAME("_get_breakpoints"));
 		for (int i = 0; i < arr.size(); i++) {
 			p_breakpoints->push_back(arr[i]);
 		}
@@ -792,7 +792,7 @@ void EditorPlugin::enable_plugin() {
 	// Called when the plugin gets enabled in project settings, after it's added to the tree.
 	// You can implement it to register autoloads.
 	if (get_script_instance() && get_script_instance()->has_method("_enable_plugin")) {
-		get_script_instance()->call("_enable_plugin");
+		get_script_instance()->call(SNAME("_enable_plugin"));
 	}
 }
 
@@ -801,25 +801,25 @@ void EditorPlugin::disable_plugin() {
 	// Implement it to cleanup things from the project, such as unregister autoloads.
 
 	if (get_script_instance() && get_script_instance()->has_method("_disable_plugin")) {
-		get_script_instance()->call("_disable_plugin");
+		get_script_instance()->call(SNAME("_disable_plugin"));
 	}
 }
 
 void EditorPlugin::set_window_layout(Ref<ConfigFile> p_layout) {
 	if (get_script_instance() && get_script_instance()->has_method("_set_window_layout")) {
-		get_script_instance()->call("_set_window_layout", p_layout);
+		get_script_instance()->call(SNAME("_set_window_layout"), p_layout);
 	}
 }
 
 void EditorPlugin::get_window_layout(Ref<ConfigFile> p_layout) {
 	if (get_script_instance() && get_script_instance()->has_method("_get_window_layout")) {
-		get_script_instance()->call("_get_window_layout", p_layout);
+		get_script_instance()->call(SNAME("_get_window_layout"), p_layout);
 	}
 }
 
 bool EditorPlugin::build() {
 	if (get_script_instance() && get_script_instance()->has_method("_build")) {
-		return get_script_instance()->call("_build");
+		return get_script_instance()->call(SNAME("_build"));
 	}
 
 	return true;

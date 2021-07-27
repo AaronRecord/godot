@@ -2826,35 +2826,35 @@ VisualScriptSelf::VisualScriptSelf() {
 
 int VisualScriptCustomNode::get_output_sequence_port_count() const {
 	if (get_script_instance() && get_script_instance()->has_method("_get_output_sequence_port_count")) {
-		return get_script_instance()->call("_get_output_sequence_port_count");
+		return get_script_instance()->call(SNAME("_get_output_sequence_port_count"));
 	}
 	return 0;
 }
 
 bool VisualScriptCustomNode::has_input_sequence_port() const {
 	if (get_script_instance() && get_script_instance()->has_method("_has_input_sequence_port")) {
-		return get_script_instance()->call("_has_input_sequence_port");
+		return get_script_instance()->call(SNAME("_has_input_sequence_port"));
 	}
 	return false;
 }
 
 int VisualScriptCustomNode::get_input_value_port_count() const {
 	if (get_script_instance() && get_script_instance()->has_method("_get_input_value_port_count")) {
-		return get_script_instance()->call("_get_input_value_port_count");
+		return get_script_instance()->call(SNAME("_get_input_value_port_count"));
 	}
 	return 0;
 }
 
 int VisualScriptCustomNode::get_output_value_port_count() const {
 	if (get_script_instance() && get_script_instance()->has_method("_get_output_value_port_count")) {
-		return get_script_instance()->call("_get_output_value_port_count");
+		return get_script_instance()->call(SNAME("_get_output_value_port_count"));
 	}
 	return 0;
 }
 
 String VisualScriptCustomNode::get_output_sequence_port_text(int p_port) const {
 	if (get_script_instance() && get_script_instance()->has_method("_get_output_sequence_port_text")) {
-		return get_script_instance()->call("_get_output_sequence_port_text", p_port);
+		return get_script_instance()->call(SNAME("_get_output_sequence_port_text"), p_port);
 	}
 
 	return String();
@@ -2863,16 +2863,16 @@ String VisualScriptCustomNode::get_output_sequence_port_text(int p_port) const {
 PropertyInfo VisualScriptCustomNode::get_input_value_port_info(int p_idx) const {
 	PropertyInfo info;
 	if (get_script_instance() && get_script_instance()->has_method("_get_input_value_port_type")) {
-		info.type = Variant::Type(int(get_script_instance()->call("_get_input_value_port_type", p_idx)));
+		info.type = Variant::Type(int(get_script_instance()->call(SNAME("_get_input_value_port_type"), p_idx)));
 	}
 	if (get_script_instance() && get_script_instance()->has_method("_get_input_value_port_name")) {
-		info.name = get_script_instance()->call("_get_input_value_port_name", p_idx);
+		info.name = get_script_instance()->call(SNAME("_get_input_value_port_name"), p_idx);
 	}
 	if (get_script_instance() && get_script_instance()->has_method("_get_input_value_port_hint")) {
-		info.hint = PropertyHint(int(get_script_instance()->call("_get_input_value_port_hint", p_idx)));
+		info.hint = PropertyHint(int(get_script_instance()->call(SNAME("_get_input_value_port_hint"), p_idx)));
 	}
 	if (get_script_instance() && get_script_instance()->has_method("_get_input_value_port_hint_string")) {
-		info.hint_string = get_script_instance()->call("_get_input_value_port_hint_string", p_idx);
+		info.hint_string = get_script_instance()->call(SNAME("_get_input_value_port_hint_string"), p_idx);
 	}
 	return info;
 }
@@ -2880,16 +2880,16 @@ PropertyInfo VisualScriptCustomNode::get_input_value_port_info(int p_idx) const 
 PropertyInfo VisualScriptCustomNode::get_output_value_port_info(int p_idx) const {
 	PropertyInfo info;
 	if (get_script_instance() && get_script_instance()->has_method("_get_output_value_port_type")) {
-		info.type = Variant::Type(int(get_script_instance()->call("_get_output_value_port_type", p_idx)));
+		info.type = Variant::Type(int(get_script_instance()->call(SNAME("_get_output_value_port_type"), p_idx)));
 	}
 	if (get_script_instance() && get_script_instance()->has_method("_get_output_value_port_name")) {
-		info.name = get_script_instance()->call("_get_output_value_port_name", p_idx);
+		info.name = get_script_instance()->call(SNAME("_get_output_value_port_name"), p_idx);
 	}
 	if (get_script_instance() && get_script_instance()->has_method("_get_output_value_port_hint")) {
-		info.hint = PropertyHint(int(get_script_instance()->call("_get_output_value_port_hint", p_idx)));
+		info.hint = PropertyHint(int(get_script_instance()->call(SNAME("_get_output_value_port_hint"), p_idx)));
 	}
 	if (get_script_instance() && get_script_instance()->has_method("_get_output_value_port_hint_string")) {
-		info.hint_string = get_script_instance()->call("_get_output_value_port_hint_string", p_idx);
+		info.hint_string = get_script_instance()->call(SNAME("_get_output_value_port_hint_string"), p_idx);
 	}
 	return info;
 }
@@ -2912,21 +2912,21 @@ VisualScriptCustomNode::TypeGuess VisualScriptCustomNode::guess_output_type(Type
 
 String VisualScriptCustomNode::get_caption() const {
 	if (get_script_instance() && get_script_instance()->has_method("_get_caption")) {
-		return get_script_instance()->call("_get_caption");
+		return get_script_instance()->call(SNAME("_get_caption"));
 	}
 	return "CustomNode";
 }
 
 String VisualScriptCustomNode::get_text() const {
 	if (get_script_instance() && get_script_instance()->has_method("_get_text")) {
-		return get_script_instance()->call("_get_text");
+		return get_script_instance()->call(SNAME("_get_text"));
 	}
 	return "";
 }
 
 String VisualScriptCustomNode::get_category() const {
 	if (get_script_instance() && get_script_instance()->has_method("_get_category")) {
-		return get_script_instance()->call("_get_category");
+		return get_script_instance()->call(SNAME("_get_category"));
 	}
 	return "Custom";
 }
@@ -3009,7 +3009,7 @@ VisualScriptNodeInstance *VisualScriptCustomNode::instantiate(VisualScriptInstan
 	instance->out_count = get_output_value_port_count();
 
 	if (get_script_instance() && get_script_instance()->has_method("_get_working_memory_size")) {
-		instance->work_mem_size = get_script_instance()->call("_get_working_memory_size");
+		instance->work_mem_size = get_script_instance()->call(SNAME("_get_working_memory_size"));
 	} else {
 		instance->work_mem_size = 0;
 	}

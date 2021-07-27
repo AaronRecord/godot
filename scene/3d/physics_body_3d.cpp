@@ -606,7 +606,7 @@ void RigidBody3D::_direct_state_changed(Object *p_state) {
 		emit_signal(SceneStringNames::get_singleton()->sleeping_state_changed);
 	}
 	if (get_script_instance()) {
-		get_script_instance()->call("_integrate_forces", state);
+		get_script_instance()->call(SNAME("_integrate_forces"), state);
 	}
 	set_ignore_transform_notification(false);
 	_on_transform_changed();

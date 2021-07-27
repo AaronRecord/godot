@@ -107,7 +107,7 @@ void Polygon2DEditor::_sync_bones() {
 		skeleton = Object::cast_to<Skeleton2D>(sn);
 	}
 
-	Array prev_bones = node->call("_get_bones");
+	Array prev_bones = node->call(SNAME("_get_bones"));
 	node->clear_bones();
 
 	if (!skeleton) {
@@ -139,7 +139,7 @@ void Polygon2DEditor::_sync_bones() {
 		}
 	}
 
-	Array new_bones = node->call("_get_bones");
+	Array new_bones = node->call(SNAME("_get_bones"));
 
 	undo_redo->create_action(TTR("Sync Bones"));
 	undo_redo->add_do_method(node, "_set_bones", new_bones);
@@ -352,7 +352,7 @@ void Polygon2DEditor::_cancel_editing() {
 		node->set_polygon(uv_create_poly_prev);
 		node->set_internal_vertex_count(uv_create_prev_internal_vertices);
 		node->set_vertex_colors(uv_create_colors_prev);
-		node->call("_set_bones", uv_create_bones_prev);
+		node->call(SNAME("_set_bones"), uv_create_bones_prev);
 		node->set_polygons(polygons_prev);
 
 		_update_polygon_editing_state();
@@ -474,7 +474,7 @@ void Polygon2DEditor::_uv_input(const Ref<InputEvent> &p_input) {
 						uv_create_poly_prev = node->get_polygon();
 						uv_create_prev_internal_vertices = node->get_internal_vertex_count();
 						uv_create_colors_prev = node->get_vertex_colors();
-						uv_create_bones_prev = node->call("_get_bones");
+						uv_create_bones_prev = node->call(SNAME("_get_bones"));
 						polygons_prev = node->get_polygons();
 						disable_polygon_editing(false, String());
 						node->set_polygon(points_prev);
@@ -524,7 +524,7 @@ void Polygon2DEditor::_uv_input(const Ref<InputEvent> &p_input) {
 					uv_create_uv_prev = node->get_uv();
 					uv_create_poly_prev = node->get_polygon();
 					uv_create_colors_prev = node->get_vertex_colors();
-					uv_create_bones_prev = node->call("_get_bones");
+					uv_create_bones_prev = node->call(SNAME("_get_bones"));
 					int internal_vertices = node->get_internal_vertex_count();
 
 					Vector2 pos = mtx.affine_inverse().xform(snap_point(Vector2(mb->get_position().x, mb->get_position().y)));
@@ -561,7 +561,7 @@ void Polygon2DEditor::_uv_input(const Ref<InputEvent> &p_input) {
 					uv_create_uv_prev = node->get_uv();
 					uv_create_poly_prev = node->get_polygon();
 					uv_create_colors_prev = node->get_vertex_colors();
-					uv_create_bones_prev = node->call("_get_bones");
+					uv_create_bones_prev = node->call(SNAME("_get_bones"));
 					int internal_vertices = node->get_internal_vertex_count();
 
 					if (internal_vertices <= 0) {

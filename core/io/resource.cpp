@@ -305,7 +305,7 @@ void Resource::notify_change_to_owners() {
 		Object *obj = ObjectDB::get_instance(E->get());
 		ERR_CONTINUE_MSG(!obj, "Object was deleted, while still owning a resource."); //wtf
 		//TODO store string
-		obj->call("resource_changed", RES(this));
+		obj->call(SNAME("resource_changed"), RES(this));
 	}
 }
 
@@ -353,7 +353,7 @@ Node *Resource::get_local_scene() const {
 
 void Resource::setup_local_to_scene() {
 	if (get_script_instance()) {
-		get_script_instance()->call("_setup_local_to_scene");
+		get_script_instance()->call(SNAME("_setup_local_to_scene"));
 	}
 }
 

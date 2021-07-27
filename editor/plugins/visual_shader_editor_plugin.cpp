@@ -72,7 +72,7 @@ const int MAX_FLOAT_CONST_DEFS = sizeof(float_constant_defs) / sizeof(FloatConst
 
 Control *VisualShaderNodePlugin::create_editor(const Ref<Resource> &p_parent_resource, const Ref<VisualShaderNode> &p_node) {
 	if (get_script_instance()) {
-		return get_script_instance()->call("_create_editor", p_parent_resource, p_node);
+		return get_script_instance()->call(SNAME("_create_editor"), p_parent_resource, p_node);
 	}
 	return nullptr;
 }
@@ -1128,34 +1128,34 @@ void VisualShaderEditor::update_custom_nodes() {
 
 			String name;
 			if (ref->has_method("_get_name")) {
-				name = (String)ref->call("_get_name");
+				name = (String)ref->call(SNAME("_get_name"));
 			} else {
 				name = "Unnamed";
 			}
 
 			String description = "";
 			if (ref->has_method("_get_description")) {
-				description = (String)ref->call("_get_description");
+				description = (String)ref->call(SNAME("_get_description"));
 			}
 
 			int return_icon_type = -1;
 			if (ref->has_method("_get_return_icon_type")) {
-				return_icon_type = (int)ref->call("_get_return_icon_type");
+				return_icon_type = (int)ref->call(SNAME("_get_return_icon_type"));
 			}
 
 			String category = "";
 			if (ref->has_method("_get_category")) {
-				category = (String)ref->call("_get_category");
+				category = (String)ref->call(SNAME("_get_category"));
 			}
 
 			String subcategory = "";
 			if (ref->has_method("_get_subcategory")) {
-				subcategory = (String)ref->call("_get_subcategory");
+				subcategory = (String)ref->call(SNAME("_get_subcategory"));
 			}
 
 			bool highend = false;
 			if (ref->has_method("_is_highend")) {
-				highend = (bool)ref->call("_is_highend");
+				highend = (bool)ref->call(SNAME("_is_highend"));
 			}
 
 			Dictionary dict;
@@ -2680,7 +2680,7 @@ void VisualShaderEditor::_update_constant(VisualShader::Type p_type_id, int p_no
 	Ref<VisualShaderNode> node = visual_shader->get_node(p_type_id, p_node_id);
 	ERR_FAIL_COND(!node.is_valid());
 	ERR_FAIL_COND(!node->has_method("set_constant"));
-	node->call("set_constant", p_var);
+	node->call(SNAME("set_constant"), p_var);
 	if (p_preview_port != -1) {
 		node->set_output_port_for_preview(p_preview_port);
 	}
@@ -2695,8 +2695,8 @@ void VisualShaderEditor::_update_uniform(VisualShader::Type p_type_id, int p_nod
 	graph_plugin->set_uniform_name(p_type_id, p_node_id, valid_name);
 
 	if (uniform->has_method("set_default_value_enabled")) {
-		uniform->call("set_default_value_enabled", true);
-		uniform->call("set_default_value", p_var);
+		uniform->call(SNAME("set_default_value_enabled"), true);
+		uniform->call(SNAME("set_default_value"), p_var);
 	}
 	if (p_preview_port != -1) {
 		uniform->set_output_port_for_preview(p_preview_port);
@@ -3042,7 +3042,7 @@ void VisualShaderEditor::_sbox_input(const Ref<InputEvent> &p_ie) {
 								 ie->get_keycode() == KEY_DOWN ||
 								 ie->get_keycode() == KEY_ENTER ||
 								 ie->get_keycode() == KEY_KP_ENTER)) {
-		members->call("_gui_input", ie);
+		members->call(SNAME("_gui_input"), ie);
 		node_filter->accept_event();
 	}
 }
@@ -5015,9 +5015,9 @@ void VisualShaderNodePortPreview::_shader_changed() {
 			continue;
 		}
 		if (object->has_method("get_material_override")) { // trying getting material from MeshInstance
-			src_mat = Object::cast_to<ShaderMaterial>(object->call("get_material_override"));
+			src_mat = Object::cast_to<ShaderMaterial>(object->call(SNAME("get_material_override")));
 		} else if (object->has_method("get_material")) { // from CanvasItem/Node2D
-			src_mat = Object::cast_to<ShaderMaterial>(object->call("get_material"));
+			src_mat = Object::cast_to<ShaderMaterial>(object->call(SNAME("get_material")));
 		} else {
 			src_mat = Object::cast_to<ShaderMaterial>(object);
 		}

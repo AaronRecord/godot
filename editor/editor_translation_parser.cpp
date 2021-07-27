@@ -45,7 +45,7 @@ Error EditorTranslationParserPlugin::parse_file(const String &p_path, Vector<Str
 	if (get_script_instance()->has_method("_parse_file")) {
 		Array ids;
 		Array ids_ctx_plural;
-		get_script_instance()->call("_parse_file", p_path, ids, ids_ctx_plural);
+		get_script_instance()->call(SNAME("_parse_file"), p_path, ids, ids_ctx_plural);
 
 		// Add user's extracted translatable messages.
 		for (int i = 0; i < ids.size(); i++) {
@@ -76,7 +76,7 @@ void EditorTranslationParserPlugin::get_recognized_extensions(List<String> *r_ex
 	}
 
 	if (get_script_instance()->has_method("_get_recognized_extensions")) {
-		Array extensions = get_script_instance()->call("_get_recognized_extensions");
+		Array extensions = get_script_instance()->call(SNAME("_get_recognized_extensions"));
 		for (int i = 0; i < extensions.size(); i++) {
 			r_extensions->push_back(extensions[i]);
 		}

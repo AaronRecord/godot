@@ -1523,7 +1523,7 @@ String CodeEdit::get_text_for_code_completion() const {
 void CodeEdit::request_code_completion(bool p_force) {
 	ScriptInstance *si = get_script_instance();
 	if (si && si->has_method("_request_code_completion")) {
-		si->call("_request_code_completion", p_force);
+		si->call(SNAME("_request_code_completion"), p_force);
 		return;
 	}
 
@@ -1639,7 +1639,7 @@ void CodeEdit::confirm_code_completion(bool p_replace) {
 
 	ScriptInstance *si = get_script_instance();
 	if (si && si->has_method("_confirm_code_completion")) {
-		si->call("_confirm_code_completion", p_replace);
+		si->call(SNAME("_confirm_code_completion"), p_replace);
 		return;
 	}
 	begin_complex_operation();
@@ -2300,7 +2300,7 @@ void CodeEdit::_filter_code_completion_candidates() {
 			i++;
 		}
 
-		TypedArray<Dictionary> completion_options = si->call("_filter_code_completion_candidates", completion_options_sources);
+		TypedArray<Dictionary> completion_options = si->call(SNAME("_filter_code_completion_candidates"), completion_options_sources);
 
 		/* No options to complete, cancel. */
 		if (completion_options.size() == 0) {

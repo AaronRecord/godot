@@ -3034,21 +3034,21 @@ AnimationTrackEdit *AnimationTrackEditPlugin::create_value_track_edit(Object *p_
 		};
 
 		Callable::CallError ce;
-		return Object::cast_to<AnimationTrackEdit>(get_script_instance()->call("create_value_track_edit", (const Variant **)&argptrs, 6, ce).operator Object *());
+		return Object::cast_to<AnimationTrackEdit>(get_script_instance()->call(SNAME("create_value_track_edit"), (const Variant **)&argptrs, 6, ce).operator Object *());
 	}
 	return nullptr;
 }
 
 AnimationTrackEdit *AnimationTrackEditPlugin::create_audio_track_edit() {
 	if (get_script_instance()) {
-		return Object::cast_to<AnimationTrackEdit>(get_script_instance()->call("create_audio_track_edit").operator Object *());
+		return Object::cast_to<AnimationTrackEdit>(get_script_instance()->call(SNAME("create_audio_track_edit")).operator Object *());
 	}
 	return nullptr;
 }
 
 AnimationTrackEdit *AnimationTrackEditPlugin::create_animation_track_edit(Object *p_object) {
 	if (get_script_instance()) {
-		return Object::cast_to<AnimationTrackEdit>(get_script_instance()->call("create_animation_track_edit", p_object).operator Object *());
+		return Object::cast_to<AnimationTrackEdit>(get_script_instance()->call(SNAME("create_animation_track_edit"), p_object).operator Object *());
 	}
 	return nullptr;
 }
@@ -5752,7 +5752,7 @@ void AnimationTrackEditor::_pick_track_filter_input(const Ref<InputEvent> &p_ie)
 			case KEY_DOWN:
 			case KEY_PAGEUP:
 			case KEY_PAGEDOWN: {
-				pick_track->get_scene_tree()->get_scene_tree()->call("_gui_input", k);
+				pick_track->get_scene_tree()->get_scene_tree()->call(SNAME("_gui_input"), k);
 				pick_track->get_filter_line_edit()->accept_event();
 			} break;
 		}

@@ -2491,7 +2491,7 @@ void Node::clear_internal_tree_resource_paths() {
 TypedArray<String> Node::get_configuration_warnings() const {
 	if (get_script_instance() && get_script_instance()->get_script().is_valid() &&
 			get_script_instance()->get_script()->is_tool() && get_script_instance()->has_method("_get_configuration_warnings")) {
-		return get_script_instance()->call("_get_configuration_warnings");
+		return get_script_instance()->call(SNAME("_get_configuration_warnings"));
 	}
 	return Array();
 }

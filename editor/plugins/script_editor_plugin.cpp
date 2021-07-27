@@ -56,7 +56,7 @@
 String EditorSyntaxHighlighter::_get_name() const {
 	ScriptInstance *si = get_script_instance();
 	if (si && si->has_method("_get_name")) {
-		return si->call("_get_name");
+		return si->call(SNAME("_get_name"));
 	}
 	return "Unnamed";
 }
@@ -64,7 +64,7 @@ String EditorSyntaxHighlighter::_get_name() const {
 Array EditorSyntaxHighlighter::_get_supported_languages() const {
 	ScriptInstance *si = get_script_instance();
 	if (si && si->has_method("_get_supported_languages")) {
-		return si->call("_get_supported_languages");
+		return si->call(SNAME("_get_supported_languages"));
 	}
 	return Array();
 }
@@ -323,7 +323,7 @@ void ScriptEditorQuickOpen::_sbox_input(const Ref<InputEvent> &p_ie) {
 								k->get_keycode() == KEY_DOWN ||
 								k->get_keycode() == KEY_PAGEUP ||
 								k->get_keycode() == KEY_PAGEDOWN)) {
-		search_options->call("_gui_input", k);
+		search_options->call(SNAME("_gui_input"), k);
 		search_box->accept_event();
 	}
 }

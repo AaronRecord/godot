@@ -360,8 +360,8 @@ void _OS::print_all_textures_by_size() {
 				continue;
 			}
 
-			Size2 size = res->call("get_size");
-			int fmt = res->call("get_format");
+			Size2 size = res->call(SNAME("get_size"));
+			int fmt = res->call(SNAME("get_format"));
 
 			_OSCoreBindImg img;
 			img.size = size;

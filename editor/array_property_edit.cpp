@@ -54,7 +54,7 @@ void ArrayPropertyEdit::_notif_change() {
 
 void ArrayPropertyEdit::_set_size(int p_size) {
 	Variant arr = get_array();
-	arr.call("resize", p_size);
+	arr.call(SNAME("resize"), p_size);
 	Object *o = ObjectDB::get_instance(obj);
 	if (!o) {
 		return;
@@ -80,7 +80,7 @@ bool ArrayPropertyEdit::_set(const StringName &p_name, const Variant &p_value) {
 	if (pn.begins_with("array/")) {
 		if (pn == "array/size") {
 			Variant arr = get_array();
-			int size = arr.call("size");
+			int size = arr.call(SNAME("size"));
 
 			int newsize = p_value;
 			if (newsize == size) {
@@ -165,12 +165,12 @@ bool ArrayPropertyEdit::_set(const StringName &p_name, const Variant &p_value) {
 
 bool ArrayPropertyEdit::_get(const StringName &p_name, Variant &r_ret) const {
 	Variant arr = get_array();
-	//int size = arr.call("size");
+	//int size = arr.call(SNAME("size"));
 
 	String pn = p_name;
 	if (pn.begins_with("array/")) {
 		if (pn == "array/size") {
-			r_ret = arr.call("size");
+			r_ret = arr.call(SNAME("size"));
 			return true;
 		}
 		if (pn == "array/page") {
@@ -206,7 +206,7 @@ bool ArrayPropertyEdit::_get(const StringName &p_name, Variant &r_ret) const {
 
 void ArrayPropertyEdit::_get_property_list(List<PropertyInfo> *p_list) const {
 	Variant arr = get_array();
-	int size = arr.call("size");
+	int size = arr.call(SNAME("size"));
 
 	p_list->push_back(PropertyInfo(Variant::INT, "array/size", PROPERTY_HINT_RANGE, "0,100000,1"));
 	int pages = size / ITEMS_PER_PAGE;

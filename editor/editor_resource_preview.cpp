@@ -41,21 +41,21 @@
 
 bool EditorResourcePreviewGenerator::handles(const String &p_type) const {
 	if (get_script_instance() && get_script_instance()->has_method("_handles")) {
-		return get_script_instance()->call("_handles", p_type);
+		return get_script_instance()->call(SNAME("_handles"), p_type);
 	}
 	ERR_FAIL_V_MSG(false, "EditorResourcePreviewGenerator::_handles needs to be overridden.");
 }
 
 Ref<Texture2D> EditorResourcePreviewGenerator::generate(const RES &p_from, const Size2 &p_size) const {
 	if (get_script_instance() && get_script_instance()->has_method("_generate")) {
-		return get_script_instance()->call("_generate", p_from, p_size);
+		return get_script_instance()->call(SNAME("_generate"), p_from, p_size);
 	}
 	ERR_FAIL_V_MSG(Ref<Texture2D>(), "EditorResourcePreviewGenerator::_generate needs to be overridden.");
 }
 
 Ref<Texture2D> EditorResourcePreviewGenerator::generate_from_path(const String &p_path, const Size2 &p_size) const {
 	if (get_script_instance() && get_script_instance()->has_method("_generate_from_path")) {
-		return get_script_instance()->call("_generate_from_path", p_path, p_size);
+		return get_script_instance()->call(SNAME("_generate_from_path"), p_path, p_size);
 	}
 
 	RES res = ResourceLoader::load(p_path);
@@ -67,7 +67,7 @@ Ref<Texture2D> EditorResourcePreviewGenerator::generate_from_path(const String &
 
 bool EditorResourcePreviewGenerator::generate_small_preview_automatically() const {
 	if (get_script_instance() && get_script_instance()->has_method("_generate_small_preview_automatically")) {
-		return get_script_instance()->call("_generate_small_preview_automatically");
+		return get_script_instance()->call(SNAME("_generate_small_preview_automatically"));
 	}
 
 	return false;
@@ -75,7 +75,7 @@ bool EditorResourcePreviewGenerator::generate_small_preview_automatically() cons
 
 bool EditorResourcePreviewGenerator::can_generate_small_preview() const {
 	if (get_script_instance() && get_script_instance()->has_method("_can_generate_small_preview")) {
-		return get_script_instance()->call("_can_generate_small_preview");
+		return get_script_instance()->call(SNAME("_can_generate_small_preview"));
 	}
 
 	return false;

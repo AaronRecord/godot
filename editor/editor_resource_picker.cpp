@@ -362,7 +362,7 @@ void EditorResourcePicker::set_create_options(Object *p_menu_node) {
 	_ensure_resource_menu();
 	// If a subclass implements this method, use it to replace all create items.
 	if (get_script_instance() && get_script_instance()->has_method("_set_create_options")) {
-		get_script_instance()->call("_set_create_options", p_menu_node);
+		get_script_instance()->call(SNAME("_set_create_options"), p_menu_node);
 		return;
 	}
 
@@ -419,7 +419,7 @@ void EditorResourcePicker::set_create_options(Object *p_menu_node) {
 
 bool EditorResourcePicker::handle_menu_selected(int p_which) {
 	if (get_script_instance() && get_script_instance()->has_method("_handle_menu_selected")) {
-		return get_script_instance()->call("_handle_menu_selected", p_which);
+		return get_script_instance()->call(SNAME("_handle_menu_selected"), p_which);
 	}
 
 	return false;

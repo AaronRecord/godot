@@ -50,7 +50,7 @@ Variant RichTextEffect::get_bbcode() const {
 bool RichTextEffect::_process_effect_impl(Ref<CharFXTransform> p_cfx) {
 	bool return_value = false;
 	if (get_script_instance()) {
-		Variant v = get_script_instance()->call("_process_custom_fx", p_cfx);
+		Variant v = get_script_instance()->call(SNAME("_process_custom_fx"), p_cfx);
 		if (v.get_type() != Variant::BOOL) {
 			return_value = false;
 		} else {

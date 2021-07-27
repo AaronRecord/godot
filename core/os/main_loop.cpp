@@ -62,13 +62,13 @@ void MainLoop::initialize() {
 	}
 
 	if (get_script_instance()) {
-		get_script_instance()->call("_initialize");
+		get_script_instance()->call(SNAME("_initialize"));
 	}
 }
 
 bool MainLoop::physics_process(double p_time) {
 	if (get_script_instance()) {
-		return get_script_instance()->call("_physics_process", p_time);
+		return get_script_instance()->call(SNAME("_physics_process"), p_time);
 	}
 
 	return false;
@@ -76,7 +76,7 @@ bool MainLoop::physics_process(double p_time) {
 
 bool MainLoop::process(double p_time) {
 	if (get_script_instance()) {
-		return get_script_instance()->call("_process", p_time);
+		return get_script_instance()->call(SNAME("_process"), p_time);
 	}
 
 	return false;
@@ -84,7 +84,7 @@ bool MainLoop::process(double p_time) {
 
 void MainLoop::finalize() {
 	if (get_script_instance()) {
-		get_script_instance()->call("_finalize");
+		get_script_instance()->call(SNAME("_finalize"));
 		set_script(Variant()); //clear script
 	}
 }

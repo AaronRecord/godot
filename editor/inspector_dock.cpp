@@ -248,7 +248,7 @@ void InspectorDock::_prepare_history() {
 		} else if (Object::cast_to<Node>(obj)) {
 			text = Object::cast_to<Node>(obj)->get_name();
 		} else if (obj->is_class("EditorDebuggerRemoteObject")) {
-			text = obj->call("get_title");
+			text = obj->call(SNAME("get_title"));
 		} else {
 			text = obj->get_class();
 		}

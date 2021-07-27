@@ -74,7 +74,7 @@ PluginScriptInstance *PluginScript::_create_instance(const Variant **p_args, int
 	// Construct
 	// TODO: Support arguments in the constructor?
 	// There is currently no way to get the constructor function name of the script.
-	// instance->call("__init__", p_args, p_argcount, r_error);
+	// instance->call(SNAME("__init__"), p_args, p_argcount, r_error);
 	if (p_argcount > 0) {
 		WARN_PRINT("PluginScript doesn't support arguments in the constructor");
 	}

@@ -45,7 +45,7 @@ Dictionary SyntaxHighlighter::get_line_syntax_highlighting(int p_line) {
 
 	ScriptInstance *si = get_script_instance();
 	if (si && si->has_method("_get_line_syntax_highlighting")) {
-		color_map = si->call("_get_line_syntax_highlighting", p_line);
+		color_map = si->call(SNAME("_get_line_syntax_highlighting"), p_line);
 	} else {
 		color_map = _get_line_syntax_highlighting(p_line);
 	}
@@ -71,7 +71,7 @@ void SyntaxHighlighter::clear_highlighting_cache() {
 
 	ScriptInstance *si = get_script_instance();
 	if (si && si->has_method("_clear_highlighting_cache")) {
-		si->call("_clear_highlighting_cache");
+		si->call(SNAME("_clear_highlighting_cache"));
 		return;
 	}
 	_clear_highlighting_cache();
@@ -85,7 +85,7 @@ void SyntaxHighlighter::update_cache() {
 	}
 	ScriptInstance *si = get_script_instance();
 	if (si && si->has_method("_update_cache")) {
-		si->call("_update_cache");
+		si->call(SNAME("_update_cache"));
 		return;
 	}
 	_update_cache();

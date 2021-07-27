@@ -5141,7 +5141,7 @@ void GLTFDocument::_convert_scene_node(Ref<GLTFState> state, Node *p_current, No
 #ifdef MODULE_CSG_ENABLED
 void GLTFDocument::_convert_csg_shape_to_gltf(Node *p_current, GLTFNodeIndex p_gltf_parent, Ref<GLTFNode> gltf_node, Ref<GLTFState> state) {
 	CSGShape3D *csg = Object::cast_to<CSGShape3D>(p_current);
-	csg->call("_update_shape");
+	csg->call(SNAME("_update_shape"));
 	Array meshes = csg->get_meshes();
 	if (meshes.size() != 2) {
 		return;

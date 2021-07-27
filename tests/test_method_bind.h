@@ -120,24 +120,24 @@ public:
 		}
 		//regular
 		test_num = Math::rand();
-		call("test_method");
+		call(SNAME("test_method"));
 		test_num = Math::rand();
-		call("test_method_args", test_num);
+		call(SNAME("test_method_args"), test_num);
 		test_num = Math::rand();
-		call("test_methodc");
+		call(SNAME("test_methodc"));
 		test_num = Math::rand();
-		call("test_methodc_args", test_num);
+		call(SNAME("test_methodc_args"), test_num);
 		//return
 		test_num = Math::rand();
-		test_valid[TEST_METHODR] = int(call("test_methodr")) == test_num && test_valid[TEST_METHODR];
+		test_valid[TEST_METHODR] = int(call(SNAME("test_methodr"))) == test_num && test_valid[TEST_METHODR];
 		test_num = Math::rand();
-		test_valid[TEST_METHODR_ARGS] = int(call("test_methodr_args", test_num)) == test_num && test_valid[TEST_METHODR_ARGS];
+		test_valid[TEST_METHODR_ARGS] = int(call(SNAME("test_methodr_args"), test_num)) == test_num && test_valid[TEST_METHODR_ARGS];
 		test_num = Math::rand();
-		test_valid[TEST_METHODRC] = int(call("test_methodrc")) == test_num && test_valid[TEST_METHODRC];
+		test_valid[TEST_METHODRC] = int(call(SNAME("test_methodrc"))) == test_num && test_valid[TEST_METHODRC];
 		test_num = Math::rand();
-		test_valid[TEST_METHODRC_ARGS] = int(call("test_methodrc_args", test_num)) == test_num && test_valid[TEST_METHODRC_ARGS];
+		test_valid[TEST_METHODRC_ARGS] = int(call(SNAME("test_methodrc_args"), test_num)) == test_num && test_valid[TEST_METHODRC_ARGS];
 
-		call("test_method_default_args", 1, 2, 3, 4);
+		call(SNAME("test_method_default_args"), 1, 2, 3, 4);
 	}
 };
 

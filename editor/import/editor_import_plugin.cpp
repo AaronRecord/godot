@@ -36,17 +36,17 @@ EditorImportPlugin::EditorImportPlugin() {
 
 String EditorImportPlugin::get_importer_name() const {
 	ERR_FAIL_COND_V(!(get_script_instance() && get_script_instance()->has_method("_get_importer_name")), "");
-	return get_script_instance()->call("_get_importer_name");
+	return get_script_instance()->call(SNAME("_get_importer_name"));
 }
 
 String EditorImportPlugin::get_visible_name() const {
 	ERR_FAIL_COND_V(!(get_script_instance() && get_script_instance()->has_method("_get_visible_name")), "");
-	return get_script_instance()->call("_get_visible_name");
+	return get_script_instance()->call(SNAME("_get_visible_name"));
 }
 
 void EditorImportPlugin::get_recognized_extensions(List<String> *p_extensions) const {
 	ERR_FAIL_COND(!(get_script_instance() && get_script_instance()->has_method("_get_recognized_extensions")));
-	Array extensions = get_script_instance()->call("_get_recognized_extensions");
+	Array extensions = get_script_instance()->call(SNAME("_get_recognized_extensions"));
 	for (int i = 0; i < extensions.size(); i++) {
 		p_extensions->push_back(extensions[i]);
 	}
@@ -54,36 +54,36 @@ void EditorImportPlugin::get_recognized_extensions(List<String> *p_extensions) c
 
 String EditorImportPlugin::get_preset_name(int p_idx) const {
 	ERR_FAIL_COND_V(!(get_script_instance() && get_script_instance()->has_method("_get_preset_name")), "");
-	return get_script_instance()->call("_get_preset_name", p_idx);
+	return get_script_instance()->call(SNAME("_get_preset_name"), p_idx);
 }
 
 int EditorImportPlugin::get_preset_count() const {
 	ERR_FAIL_COND_V(!(get_script_instance() && get_script_instance()->has_method("_get_preset_count")), 0);
-	return get_script_instance()->call("_get_preset_count");
+	return get_script_instance()->call(SNAME("_get_preset_count"));
 }
 
 String EditorImportPlugin::get_save_extension() const {
 	ERR_FAIL_COND_V(!(get_script_instance() && get_script_instance()->has_method("_get_save_extension")), "");
-	return get_script_instance()->call("_get_save_extension");
+	return get_script_instance()->call(SNAME("_get_save_extension"));
 }
 
 String EditorImportPlugin::get_resource_type() const {
 	ERR_FAIL_COND_V(!(get_script_instance() && get_script_instance()->has_method("_get_resource_type")), "");
-	return get_script_instance()->call("_get_resource_type");
+	return get_script_instance()->call(SNAME("_get_resource_type"));
 }
 
 float EditorImportPlugin::get_priority() const {
 	if (!(get_script_instance() && get_script_instance()->has_method("_get_priority"))) {
 		return ResourceImporter::get_priority();
 	}
-	return get_script_instance()->call("_get_priority");
+	return get_script_instance()->call(SNAME("_get_priority"));
 }
 
 int EditorImportPlugin::get_import_order() const {
 	if (!(get_script_instance() && get_script_instance()->has_method("_get_import_order"))) {
 		return ResourceImporter::get_import_order();
 	}
-	return get_script_instance()->call("_get_import_order");
+	return get_script_instance()->call(SNAME("_get_import_order"));
 }
 
 void EditorImportPlugin::get_import_options(List<ResourceImporter::ImportOption> *r_options, int p_preset) const {
@@ -91,7 +91,7 @@ void EditorImportPlugin::get_import_options(List<ResourceImporter::ImportOption>
 	Array needed;
 	needed.push_back("name");
 	needed.push_back("default_value");
-	Array options = get_script_instance()->call("_get_import_options", p_preset);
+	Array options = get_script_instance()->call(SNAME("_get_import_options"), p_preset);
 	for (int i = 0; i < options.size(); i++) {
 		Dictionary d = options[i];
 		ERR_FAIL_COND(!d.has_all(needed));
@@ -126,7 +126,7 @@ bool EditorImportPlugin::get_option_visibility(const String &p_option, const Map
 		d[E->key()] = E->get();
 		E = E->next();
 	}
-	return get_script_instance()->call("_get_option_visibility", p_option, d);
+	return get_script_instance()->call(SNAME("_get_option_visibility"), p_option, d);
 }
 
 Error EditorImportPlugin::import(const String &p_source_file, const String &p_save_path, const Map<StringName, Variant> &p_options, List<String> *r_platform_variants, List<String> *r_gen_files, Variant *r_metadata) {
@@ -139,7 +139,7 @@ Error EditorImportPlugin::import(const String &p_source_file, const String &p_sa
 		options[E->key()] = E->get();
 		E = E->next();
 	}
-	Error err = (Error)get_script_instance()->call("_import", p_source_file, p_save_path, options, platform_variants, gen_files).operator int64_t();
+	Error err = (Error)get_script_instance()->call(SNAME("_import"), p_source_file, p_save_path, options, platform_variants, gen_files).operator int64_t();
 
 	for (int i = 0; i < platform_variants.size(); i++) {
 		r_platform_variants->push_back(platform_variants[i]);

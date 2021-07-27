@@ -753,7 +753,7 @@ void Skeleton2D::execute_modifications(float p_delta, int p_execution_mode) {
 				Transform2D final_trans = bones[i].bone->cache_transform;
 				final_trans = final_trans.interpolate_with(bones[i].local_pose_override, bones[i].local_pose_override_amount);
 				bones[i].bone->set_transform(final_trans);
-				bones[i].bone->propagate_call("force_update_transform");
+				bones[i].bone->propagate_call(SNAME("force_update_transform"));
 
 				if (bones[i].local_pose_override_persistent) {
 					bones.write[i].local_pose_override_amount = 0.0;

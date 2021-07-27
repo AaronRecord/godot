@@ -354,7 +354,7 @@ void GraphNode::_notification(int p_what) {
 			}
 
 			//sb=sb->duplicate();
-			//sb->call("set_modulate",modulate);
+			//sb->call(SNAME("set_modulate"),modulate);
 			Ref<Texture2D> port = get_theme_icon(SNAME("port"));
 			Ref<Texture2D> close = get_theme_icon(SNAME("close"));
 			Ref<Texture2D> resizer = get_theme_icon(SNAME("resizer"));

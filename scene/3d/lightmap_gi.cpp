@@ -271,7 +271,7 @@ void LightmapGI::_find_meshes_and_lights(Node *p_at_node, Vector<MeshesFound> &m
 	Node3D *s = Object::cast_to<Node3D>(p_at_node);
 
 	if (!mi && s) {
-		Array bmeshes = p_at_node->call("get_bake_bmeshes");
+		Array bmeshes = p_at_node->call(SNAME("get_bake_bmeshes"));
 		if (bmeshes.size() && (bmeshes.size() & 1) == 0) {
 			Transform3D xf = get_global_transform().affine_inverse() * s->get_global_transform();
 			for (int i = 0; i < bmeshes.size(); i += 2) {
@@ -1204,7 +1204,7 @@ void LightmapGI::_assign_lightmaps() {
 		Node *node = get_node(light_data->get_user_path(i));
 		int instance_idx = light_data->get_user_sub_instance(i);
 		if (instance_idx >= 0) {
-			RID instance = node->call("get_bake_mesh_instance", instance_idx);
+			RID instance = node->call(SNAME("get_bake_mesh_instance"), instance_idx);
 			if (instance.is_valid()) {
 				RS::get_singleton()->instance_geometry_set_lightmap(instance, get_instance(), light_data->get_user_lightmap_uv_scale(i), light_data->get_user_lightmap_slice_index(i));
 			}
@@ -1222,7 +1222,7 @@ void LightmapGI::_clear_lightmaps() {
 		Node *node = get_node(light_data->get_user_path(i));
 		int instance_idx = light_data->get_user_sub_instance(i);
 		if (instance_idx >= 0) {
-			RID instance = node->call("get_bake_mesh_instance", instance_idx);
+			RID instance = node->call(SNAME("get_bake_mesh_instance"), instance_idx);
 			if (instance.is_valid()) {
 				RS::get_singleton()->instance_geometry_set_lightmap(instance, RID(), Rect2(), 0);
 			}

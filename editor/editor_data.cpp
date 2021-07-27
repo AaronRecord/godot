@@ -1039,7 +1039,7 @@ void EditorSelection::add_node(Node *p_node) {
 	nl_changed = true;
 	Object *meta = nullptr;
 	for (Object *E : editor_plugins) {
-		meta = E->call("_get_editor_data", p_node);
+		meta = E->call(SNAME("_get_editor_data"), p_node);
 		if (meta) {
 			break;
 		}

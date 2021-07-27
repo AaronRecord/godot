@@ -380,7 +380,7 @@ StringName EditorProperty::get_edited_property() {
 
 void EditorProperty::update_property() {
 	if (get_script_instance()) {
-		get_script_instance()->call("_update_property");
+		get_script_instance()->call(SNAME("_update_property"));
 	}
 }
 
@@ -543,7 +543,7 @@ bool EditorPropertyRevert::can_property_revert(Object *p_object, const StringNam
 	// (i.e. don't then try to revert to default value - the property_get_revert implementation
 	// can do that if so desired)
 	if (p_object->has_method("property_can_revert")) {
-		has_revert = p_object->call("property_can_revert", p_property).operator bool();
+		has_revert = p_object->call(SNAME("property_can_revert"), p_property).operator bool();
 	} else {
 		if (!has_revert && !p_object->get_script().is_null()) {
 			Ref<Script> scr = p_object->get_script();
@@ -770,8 +770,8 @@ void EditorProperty::_gui_input(const Ref<InputEvent> &p_event) {
 				return;
 			}
 
-			if (object->call("property_can_revert", property).operator bool()) {
-				Variant rev = object->call("property_get_revert", property);
+			if (object->call(SNAME("property_can_revert"), property).operator bool()) {
+				Variant rev = object->call(SNAME("property_get_revert"), property);
 				emit_changed(property, rev);
 				update_property();
 				return;
@@ -1021,20 +1021,20 @@ void EditorInspectorPlugin::add_property_editor_for_multiple_properties(const St
 
 bool EditorInspectorPlugin::can_handle(Object *p_object) {
 	if (get_script_instance()) {
-		return get_script_instance()->call("_can_handle", p_object);
+		return get_script_instance()->call(SNAME("_can_handle"), p_object);
 	}
 	return false;
 }
 
 void EditorInspectorPlugin::parse_begin(Object *p_object) {
 	if (get_script_instance()) {
-		get_script_instance()->call("_parse_begin", p_object);
+		get_script_instance()->call(SNAME("_parse_begin"), p_object);
 	}
 }
 
 void EditorInspectorPlugin::parse_category(Object *p_object, const String &p_parse_category) {
 	if (get_script_instance()) {
-		get_script_instance()->call("_parse_category", p_object, p_parse_category);
+		get_script_instance()->call(SNAME("_parse_category"), p_object, p_parse_category);
 	}
 }
 
@@ -1048,14 +1048,14 @@ bool EditorInspectorPlugin::parse_property(Object *p_object, const Variant::Type
 		};
 
 		Callable::CallError err;
-		return get_script_instance()->call("_parse_property", (const Variant **)&argptr, 6, err);
+		return get_script_instance()->call(SNAME("_parse_property"), (const Variant **)&argptr, 6, err);
 	}
 	return false;
 }
 
 void EditorInspectorPlugin::parse_end() {
 	if (get_script_instance()) {
-		get_script_instance()->call("_parse_end");
+		get_script_instance()->call(SNAME("_parse_end"));
 	}
 }
 
@@ -1273,7 +1273,7 @@ void EditorInspectorSection::_notification(int p_what) {
 			Control *editor_property = Object::cast_to<Control>(vbox->get_child(child_idx));
 
 			// Test can_drop_data and can_drop_data_fw, since can_drop_data only works if set up with forwarding or if script attached.
-			if (editor_property && (editor_property->can_drop_data(Point2(), dd) || editor_property->call("_can_drop_data_fw", Point2(), dd, this))) {
+			if (editor_property && (editor_property->can_drop_data(Point2(), dd) || editor_property->call(SNAME("_can_drop_data_fw"), Point2(), dd, this))) {
 				children_can_drop = true;
 				break;
 			}
@@ -1764,7 +1764,7 @@ void EditorInspector::update_tree() {
 			continue; //do not show this property in low end gfx
 		}
 
-		if (p.name == "script" && (hide_script || bool(object->call("_hide_script_from_inspector")))) {
+		if (p.name == "script" && (hide_script || bool(object->call(SNAME("_hide_script_from_inspector"))))) {
 			continue;
 		}
 
@@ -2242,7 +2242,7 @@ void EditorInspector::_edit_set(const String &p_name, const Variant &p_value, bo
 		}
 	}
 
-	if (!undo_redo || bool(object->call("_dont_undo_redo"))) {
+	if (!undo_redo || bool(object->call(SNAME("_dont_undo_redo")))) {
 		object->set(p_name, p_value);
 		if (p_refresh_all) {
 			_edit_request_change(object, "");

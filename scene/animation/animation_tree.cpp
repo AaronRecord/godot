@@ -37,7 +37,7 @@
 
 void AnimationNode::get_parameter_list(List<PropertyInfo> *r_list) const {
 	if (get_script_instance()) {
-		Array parameters = get_script_instance()->call("_get_parameter_list");
+		Array parameters = get_script_instance()->call(SNAME("_get_parameter_list"));
 		for (int i = 0; i < parameters.size(); i++) {
 			Dictionary d = parameters[i];
 			ERR_CONTINUE(d.is_empty());
@@ -48,7 +48,7 @@ void AnimationNode::get_parameter_list(List<PropertyInfo> *r_list) const {
 
 Variant AnimationNode::get_parameter_default_value(const StringName &p_parameter) const {
 	if (get_script_instance()) {
-		return get_script_instance()->call("_get_parameter_default_value", p_parameter);
+		return get_script_instance()->call(SNAME("_get_parameter_default_value"), p_parameter);
 	}
 	return Variant();
 }
@@ -73,7 +73,7 @@ Variant AnimationNode::get_parameter(const StringName &p_name) const {
 
 void AnimationNode::get_child_nodes(List<ChildNode> *r_child_nodes) {
 	if (get_script_instance()) {
-		Dictionary cn = get_script_instance()->call("_get_child_nodes");
+		Dictionary cn = get_script_instance()->call(SNAME("_get_child_nodes"));
 		List<Variant> keys;
 		cn.get_key_list(&keys);
 		for (const Variant &E : keys) {
@@ -299,7 +299,7 @@ String AnimationNode::get_input_name(int p_input) {
 
 String AnimationNode::get_caption() const {
 	if (get_script_instance()) {
-		return get_script_instance()->call("_get_caption");
+		return get_script_instance()->call(SNAME("_get_caption"));
 	}
 
 	return "Node";
@@ -330,7 +330,7 @@ void AnimationNode::remove_input(int p_index) {
 
 float AnimationNode::process(float p_time, bool p_seek) {
 	if (get_script_instance()) {
-		return get_script_instance()->call("_process", p_time, p_seek);
+		return get_script_instance()->call(SNAME("_process"), p_time, p_seek);
 	}
 
 	return 0;
@@ -358,7 +358,7 @@ bool AnimationNode::is_path_filtered(const NodePath &p_path) const {
 
 bool AnimationNode::has_filter() const {
 	if (get_script_instance()) {
-		return get_script_instance()->call("_has_filter");
+		return get_script_instance()->call(SNAME("_has_filter"));
 	}
 
 	return false;
@@ -391,7 +391,7 @@ void AnimationNode::_validate_property(PropertyInfo &property) const {
 
 Ref<AnimationNode> AnimationNode::get_child_by_name(const StringName &p_name) {
 	if (get_script_instance()) {
-		return get_script_instance()->call("_get_child_by_name", p_name);
+		return get_script_instance()->call(SNAME("_get_child_by_name"), p_name);
 	}
 	return Ref<AnimationNode>();
 }
@@ -486,7 +486,7 @@ void AnimationTree::set_active(bool p_active) {
 	if (!active && is_inside_tree()) {
 		for (Set<TrackCache *>::Element *E = playing_caches.front(); E; E = E->next()) {
 			if (ObjectDB::get_instance(E->get()->object_id)) {
-				E->get()->object->call("stop");
+				E->get()->object->call(SNAME("stop"));
 			}
 		}
 
@@ -1025,7 +1025,7 @@ void AnimationTree::_process_graph(float p_delta) {
 
 							Ref<AudioStream> stream = a->audio_track_get_key_stream(i, idx);
 							if (!stream.is_valid()) {
-								t->object->call("stop");
+								t->object->call(SNAME("stop"));
 								t->playing = false;
 								playing_caches.erase(t);
 							} else {
@@ -1035,14 +1035,14 @@ void AnimationTree::_process_graph(float p_delta) {
 								float len = stream->get_length();
 
 								if (start_ofs > len - end_ofs) {
-									t->object->call("stop");
+									t->object->call(SNAME("stop"));
 									t->playing = false;
 									playing_caches.erase(t);
 									continue;
 								}
 
-								t->object->call("set_stream", stream);
-								t->object->call("play", start_ofs);
+								t->object->call(SNAME("set_stream"), stream);
+								t->object->call(SNAME("play"), start_ofs);
 
 								t->playing = true;
 								playing_caches.insert(t);
@@ -1064,7 +1064,7 @@ void AnimationTree::_process_graph(float p_delta) {
 
 								Ref<AudioStream> stream = a->audio_track_get_key_stream(i, idx);
 								if (!stream.is_valid()) {
-									t->object->call("stop");
+									t->object->call(SNAME("stop"));
 									t->playing = false;
 									playing_caches.erase(t);
 								} else {
@@ -1072,8 +1072,8 @@ void AnimationTree::_process_graph(float p_delta) {
 									float end_ofs = a->audio_track_get_key_end_offset(i, idx);
 									float len = stream->get_length();
 
-									t->object->call("set_stream", stream);
-									t->object->call("play", start_ofs);
+									t->object->call(SNAME("set_stream"), stream);
+									t->object->call(SNAME("play"), start_ofs);
 
 									t->playing = true;
 									playing_caches.insert(t);
@@ -1102,7 +1102,7 @@ void AnimationTree::_process_graph(float p_delta) {
 
 								if (stop) {
 									//time to stop
-									t->object->call("stop");
+									t->object->call(SNAME("stop"));
 									t->playing = false;
 									playing_caches.erase(t);
 								}
@@ -1111,9 +1111,9 @@ void AnimationTree::_process_graph(float p_delta) {
 
 						float db = Math::linear2db(MAX(blend, 0.00001));
 						if (t->object->has_method("set_unit_db")) {
-							t->object->call("set_unit_db", db);
+							t->object->call(SNAME("set_unit_db"), db);
 						} else {
-							t->object->call("set_volume_db", db);
+							t->object->call(SNAME("set_volume_db"), db);
 						}
 					} break;
 					case Animation::TYPE_ANIMATION: {

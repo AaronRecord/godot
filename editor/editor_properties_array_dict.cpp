@@ -165,7 +165,7 @@ void EditorPropertyArray::_property_changed(const String &p_property, Variant p_
 		emit_changed(get_edited_property(), array, "", true);
 
 		if (array.get_type() == Variant::ARRAY) {
-			array = array.call("duplicate"); // Duplicate, so undo/redo works better.
+			array = array.call(SNAME("duplicate")); // Duplicate, so undo/redo works better.
 		}
 		object->set_array(array);
 	}
@@ -195,7 +195,7 @@ void EditorPropertyArray::_change_type_menu(int p_index) {
 	emit_changed(get_edited_property(), array, "", true);
 
 	if (array.get_type() == Variant::ARRAY) {
-		array = array.call("duplicate"); // Duplicate, so undo/redo works better.
+		array = array.call(SNAME("duplicate")); // Duplicate, so undo/redo works better.
 	}
 
 	object->set_array(array);
@@ -258,7 +258,7 @@ void EditorPropertyArray::update_property() {
 		return;
 	}
 
-	int size = array.call("size");
+	int size = array.call(SNAME("size"));
 	int pages = MAX(0, size - 1) / page_length + 1;
 	page_index = MIN(page_index, pages - 1);
 	int offset = page_index * page_length;
@@ -323,7 +323,7 @@ void EditorPropertyArray::update_property() {
 		page_hbox->set_visible(pages > 1);
 
 		if (array.get_type() == Variant::ARRAY) {
-			array = array.call("duplicate");
+			array = array.call(SNAME("duplicate"));
 		}
 
 		object->set_array(array);
@@ -413,7 +413,7 @@ void EditorPropertyArray::update_property() {
 
 void EditorPropertyArray::_remove_pressed(int p_index) {
 	Variant array = object->get_array();
-	array.call("remove", p_index);
+	array.call(SNAME("remove"), p_index);
 
 	emit_changed(get_edited_property(), array, "", false);
 	update_property();
@@ -480,12 +480,12 @@ void EditorPropertyArray::drop_data_fw(const Point2 &p_point, const Variant &p_d
 
 			RES res = ResourceLoader::load(file);
 			if (res.is_valid()) {
-				array.call("push_back", res);
+				array.call(SNAME("push_back"), res);
 			}
 		}
 
 		if (array.get_type() == Variant::ARRAY) {
-			array = array.call("duplicate");
+			array = array.call(SNAME("duplicate"));
 		}
 
 		emit_changed(get_edited_property(), array, "", false);
@@ -540,13 +540,13 @@ void EditorPropertyArray::_length_changed(double p_page) {
 	}
 
 	Variant array = object->get_array();
-	int previous_size = array.call("size");
+	int previous_size = array.call(SNAME("size"));
 
-	array.call("resize", int(p_page));
+	array.call(SNAME("resize"), int(p_page));
 
 	if (array.get_type() == Variant::ARRAY) {
 		if (subtype != Variant::NIL) {
-			int size = array.call("size");
+			int size = array.call(SNAME("size"));
 			for (int i = previous_size; i < size; i++) {
 				if (array.get(i).get_type() == Variant::NIL) {
 					Callable::CallError ce;
@@ -556,9 +556,9 @@ void EditorPropertyArray::_length_changed(double p_page) {
 				}
 			}
 		}
-		array = array.call("duplicate"); // Duplicate, so undo/redo works better.
+		array = array.call(SNAME("duplicate")); // Duplicate, so undo/redo works better.
 	} else {
-		int size = array.call("size");
+		int size = array.call(SNAME("size"));
 		// Pool*Array don't initialize their elements, have to do it manually.
 		for (int i = previous_size; i < size; i++) {
 			Callable::CallError ce;
@@ -602,7 +602,7 @@ void EditorPropertyArray::_reorder_button_gui_input(const Ref<InputEvent> &p_eve
 	Ref<InputEventMouseMotion> mm = p_event;
 	if (mm.is_valid()) {
 		Variant array = object->get_array();
-		int size = array.call("size");
+		int size = array.call(SNAME("size"));
 
 		if ((reorder_to_index == 0 && mm->get_relative().y < 0.0f) || (reorder_to_index == size - 1 && mm->get_relative().y > 0.0f)) {
 			return;
@@ -642,8 +642,8 @@ void EditorPropertyArray::_reorder_button_up() {
 		Variant array = object->get_array();
 
 		Variant value_to_move = array.get(reorder_from_index);
-		array.call("remove", reorder_from_index);
-		array.call("insert", reorder_to_index, value_to_move);
+		array.call(SNAME("remove"), reorder_from_index);
+		array.call(SNAME("insert"), reorder_to_index, value_to_move);
 
 		emit_changed(get_edited_property(), array, "", false);
 		object->set_array(array);

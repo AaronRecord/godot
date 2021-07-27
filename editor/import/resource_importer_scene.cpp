@@ -52,7 +52,7 @@
 
 uint32_t EditorSceneImporter::get_import_flags() const {
 	if (get_script_instance()) {
-		return get_script_instance()->call("_get_import_flags");
+		return get_script_instance()->call(SNAME("_get_import_flags"));
 	}
 
 	ERR_FAIL_V(0);
@@ -60,7 +60,7 @@ uint32_t EditorSceneImporter::get_import_flags() const {
 
 void EditorSceneImporter::get_extensions(List<String> *r_extensions) const {
 	if (get_script_instance()) {
-		Array arr = get_script_instance()->call("_get_extensions");
+		Array arr = get_script_instance()->call(SNAME("_get_extensions"));
 		for (int i = 0; i < arr.size(); i++) {
 			r_extensions->push_back(arr[i]);
 		}
@@ -72,7 +72,7 @@ void EditorSceneImporter::get_extensions(List<String> *r_extensions) const {
 
 Node *EditorSceneImporter::import_scene(const String &p_path, uint32_t p_flags, int p_bake_fps, List<String> *r_missing_deps, Error *r_err) {
 	if (get_script_instance()) {
-		return get_script_instance()->call("_import_scene", p_path, p_flags, p_bake_fps);
+		return get_script_instance()->call(SNAME("_import_scene"), p_path, p_flags, p_bake_fps);
 	}
 
 	ERR_FAIL_V(nullptr);
@@ -80,7 +80,7 @@ Node *EditorSceneImporter::import_scene(const String &p_path, uint32_t p_flags, 
 
 Ref<Animation> EditorSceneImporter::import_animation(const String &p_path, uint32_t p_flags, int p_bake_fps) {
 	if (get_script_instance()) {
-		return get_script_instance()->call("_import_animation", p_path, p_flags);
+		return get_script_instance()->call(SNAME("_import_animation"), p_path, p_flags);
 	}
 
 	ERR_FAIL_V(nullptr);
@@ -126,7 +126,7 @@ void EditorScenePostImport::_bind_methods() {
 
 Node *EditorScenePostImport::post_import(Node *p_scene) {
 	if (get_script_instance()) {
-		return get_script_instance()->call("_post_import", p_scene);
+		return get_script_instance()->call(SNAME("_post_import"), p_scene);
 	}
 
 	return p_scene;

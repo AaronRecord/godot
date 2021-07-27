@@ -2395,7 +2395,7 @@ void EditorPropertyNodePath::_node_selected(const NodePath &p_path) {
 	}
 
 	if (!base_node && get_edited_object()->has_method("get_root_path")) {
-		base_node = get_edited_object()->call("get_root_path");
+		base_node = get_edited_object()->call(SNAME("get_root_path"));
 	}
 
 	if (!base_node && Object::cast_to<RefCounted>(get_edited_object())) {
@@ -2535,7 +2535,7 @@ void EditorPropertyResource::_resource_changed(const RES &p_resource) {
 	// Make visual script the correct type.
 	Ref<Script> s = p_resource;
 	if (get_edited_object() && s.is_valid()) {
-		s->call("set_instance_base_type", get_edited_object()->get_class());
+		s->call(SNAME("set_instance_base_type"), get_edited_object()->get_class());
 	}
 
 	// Prevent the creation of invalid ViewportTextures when possible.

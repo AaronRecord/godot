@@ -44,7 +44,7 @@
 ///////////////////////////////////////
 
 void SkeletonModification2D::_execute(float p_delta) {
-	call("_execute", p_delta);
+	call(SNAME("_execute"), p_delta);
 
 	if (!enabled) {
 		return;
@@ -59,11 +59,11 @@ void SkeletonModification2D::_setup_modification(SkeletonModificationStack2D *p_
 		WARN_PRINT("Could not setup modification with name " + get_name());
 	}
 
-	call("_setup_modification", p_stack);
+	call(SNAME("_setup_modification"), p_stack);
 }
 
 void SkeletonModification2D::_draw_editor_gizmo() {
-	call("_draw_editor_gizmo");
+	call(SNAME("_draw_editor_gizmo"));
 }
 
 void SkeletonModification2D::set_enabled(bool p_enabled) {

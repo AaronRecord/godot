@@ -255,7 +255,7 @@ MonoBoolean godot_icall_Internal_ScriptEditorEdit(MonoObject *p_resource, int32_
 }
 
 void godot_icall_Internal_EditorNodeShowScriptScreen() {
-	EditorNode::get_singleton()->call("_editor_select", EditorNode::EDITOR_SCRIPT);
+	EditorNode::get_singleton()->call(SNAME("_editor_select"), EditorNode::EDITOR_SCRIPT);
 }
 
 MonoString *godot_icall_Internal_MonoWindowsInstallRoot() {

@@ -625,19 +625,19 @@ Vector<String> EditorExportPlugin::get_ios_project_static_libs() const {
 
 void EditorExportPlugin::_export_file_script(const String &p_path, const String &p_type, const Vector<String> &p_features) {
 	if (get_script_instance()) {
-		get_script_instance()->call("_export_file", p_path, p_type, p_features);
+		get_script_instance()->call(SNAME("_export_file"), p_path, p_type, p_features);
 	}
 }
 
 void EditorExportPlugin::_export_begin_script(const Vector<String> &p_features, bool p_debug, const String &p_path, int p_flags) {
 	if (get_script_instance()) {
-		get_script_instance()->call("_export_begin", p_features, p_debug, p_path, p_flags);
+		get_script_instance()->call(SNAME("_export_begin"), p_features, p_debug, p_path, p_flags);
 	}
 }
 
 void EditorExportPlugin::_export_end_script() {
 	if (get_script_instance()) {
-		get_script_instance()->call("_export_end");
+		get_script_instance()->call(SNAME("_export_end"));
 	}
 }
 

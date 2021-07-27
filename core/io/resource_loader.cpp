@@ -70,7 +70,7 @@ bool ResourceFormatLoader::recognize_path(const String &p_path, const String &p_
 bool ResourceFormatLoader::handles_type(const String &p_type) const {
 	if (get_script_instance() && get_script_instance()->has_method("_handles_type")) {
 		// I guess custom loaders for custom resources should use "Resource"
-		return get_script_instance()->call("_handles_type", p_type);
+		return get_script_instance()->call(SNAME("_handles_type"), p_type);
 	}
 
 	return false;
@@ -78,7 +78,7 @@ bool ResourceFormatLoader::handles_type(const String &p_type) const {
 
 String ResourceFormatLoader::get_resource_type(const String &p_path) const {
 	if (get_script_instance() && get_script_instance()->has_method("_get_resource_type")) {
-		return get_script_instance()->call("_get_resource_type", p_path);
+		return get_script_instance()->call(SNAME("_get_resource_type"), p_path);
 	}
 
 	return "";
@@ -86,7 +86,7 @@ String ResourceFormatLoader::get_resource_type(const String &p_path) const {
 
 ResourceUID::ID ResourceFormatLoader::get_resource_uid(const String &p_path) const {
 	if (get_script_instance() && get_script_instance()->has_method("_get_resource_uid")) {
-		return get_script_instance()->call("_get_resource_uid", p_path);
+		return get_script_instance()->call(SNAME("_get_resource_uid"), p_path);
 	}
 
 	return ResourceUID::INVALID_ID;
@@ -110,7 +110,7 @@ bool ResourceFormatLoader::exists(const String &p_path) const {
 
 void ResourceFormatLoader::get_recognized_extensions(List<String> *p_extensions) const {
 	if (get_script_instance() && get_script_instance()->has_method("_get_recognized_extensions")) {
-		PackedStringArray exts = get_script_instance()->call("_get_recognized_extensions");
+		PackedStringArray exts = get_script_instance()->call(SNAME("_get_recognized_extensions"));
 
 		{
 			const String *r = exts.ptr();
@@ -124,7 +124,7 @@ void ResourceFormatLoader::get_recognized_extensions(List<String> *p_extensions)
 RES ResourceFormatLoader::load(const String &p_path, const String &p_original_path, Error *r_error, bool p_use_sub_threads, float *r_progress, CacheMode p_cache_mode) {
 	// Check user-defined loader if there's any. Hard fail if it returns an error.
 	if (get_script_instance() && get_script_instance()->has_method("_load")) {
-		Variant res = get_script_instance()->call("_load", p_path, p_original_path, p_use_sub_threads, p_cache_mode);
+		Variant res = get_script_instance()->call(SNAME("_load"), p_path, p_original_path, p_use_sub_threads, p_cache_mode);
 
 		if (res.get_type() == Variant::INT) { // Error code, abort.
 			if (r_error) {
@@ -144,7 +144,7 @@ RES ResourceFormatLoader::load(const String &p_path, const String &p_original_pa
 
 void ResourceFormatLoader::get_dependencies(const String &p_path, List<String> *p_dependencies, bool p_add_types) {
 	if (get_script_instance() && get_script_instance()->has_method("_get_dependencies")) {
-		PackedStringArray deps = get_script_instance()->call("_get_dependencies", p_path, p_add_types);
+		PackedStringArray deps = get_script_instance()->call(SNAME("_get_dependencies"), p_path, p_add_types);
 
 		{
 			const String *r = deps.ptr();
@@ -162,7 +162,7 @@ Error ResourceFormatLoader::rename_dependencies(const String &p_path, const Map<
 			deps_dict[E->key()] = E->value();
 		}
 
-		int64_t res = get_script_instance()->call("_rename_dependencies", deps_dict);
+		int64_t res = get_script_instance()->call(SNAME("_rename_dependencies"), deps_dict);
 		return (Error)res;
 	}
 

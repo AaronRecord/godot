@@ -194,7 +194,7 @@ void AnimationTrackEditAudio::_preview_changed(ObjectID p_which) {
 		return;
 	}
 
-	Ref<AudioStream> stream = object->call("get_stream");
+	Ref<AudioStream> stream = object->call(SNAME("get_stream"));
 
 	if (stream.is_valid() && stream->get_instance_id() == p_which) {
 		update();
@@ -218,7 +218,7 @@ Rect2 AnimationTrackEditAudio::get_key_rect(int p_index, float p_pixels_sec) {
 		return AnimationTrackEdit::get_key_rect(p_index, p_pixels_sec);
 	}
 
-	Ref<AudioStream> stream = object->call("get_stream");
+	Ref<AudioStream> stream = object->call(SNAME("get_stream"));
 
 	if (!stream.is_valid()) {
 		return AnimationTrackEdit::get_key_rect(p_index, p_pixels_sec);
@@ -258,7 +258,7 @@ void AnimationTrackEditAudio::draw_key(int p_index, float p_pixels_sec, int p_x,
 		return;
 	}
 
-	Ref<AudioStream> stream = object->call("get_stream");
+	Ref<AudioStream> stream = object->call(SNAME("get_stream"));
 
 	if (!stream.is_valid()) {
 		AnimationTrackEdit::draw_key(p_index, p_pixels_sec, p_x, p_selected, p_clip_left, p_clip_right);
@@ -382,19 +382,19 @@ Rect2 AnimationTrackEditSpriteFrame::get_key_rect(int p_index, float p_pixels_se
 	Size2 size;
 
 	if (Object::cast_to<Sprite2D>(object) || Object::cast_to<Sprite3D>(object)) {
-		Ref<Texture2D> texture = object->call("get_texture");
+		Ref<Texture2D> texture = object->call(SNAME("get_texture"));
 		if (!texture.is_valid()) {
 			return AnimationTrackEdit::get_key_rect(p_index, p_pixels_sec);
 		}
 
 		size = texture->get_size();
 
-		if (bool(object->call("is_region"))) {
-			size = Rect2(object->call("get_region_rect")).size;
+		if (bool(object->call(SNAME("is_region")))) {
+			size = Rect2(object->call(SNAME("get_region_rect"))).size;
 		}
 
-		int hframes = object->call("get_hframes");
-		int vframes = object->call("get_vframes");
+		int hframes = object->call(SNAME("get_hframes"));
+		int vframes = object->call(SNAME("get_vframes"));
 
 		if (hframes > 1) {
 			size.x /= hframes;
@@ -403,7 +403,7 @@ Rect2 AnimationTrackEditSpriteFrame::get_key_rect(int p_index, float p_pixels_se
 			size.y /= vframes;
 		}
 	} else if (Object::cast_to<AnimatedSprite2D>(object) || Object::cast_to<AnimatedSprite3D>(object)) {
-		Ref<SpriteFrames> sf = object->call("get_sprite_frames");
+		Ref<SpriteFrames> sf = object->call(SNAME("get_sprite_frames"));
 		if (sf.is_null()) {
 			return AnimationTrackEdit::get_key_rect(p_index, p_pixels_sec);
 		}
@@ -459,14 +459,14 @@ void AnimationTrackEditSpriteFrame::draw_key(int p_index, float p_pixels_sec, in
 	Rect2 region;
 
 	if (Object::cast_to<Sprite2D>(object) || Object::cast_to<Sprite3D>(object)) {
-		texture = object->call("get_texture");
+		texture = object->call(SNAME("get_texture"));
 		if (!texture.is_valid()) {
 			AnimationTrackEdit::draw_key(p_index, p_pixels_sec, p_x, p_selected, p_clip_left, p_clip_right);
 			return;
 		}
 
-		int hframes = object->call("get_hframes");
-		int vframes = object->call("get_vframes");
+		int hframes = object->call(SNAME("get_hframes"));
+		int vframes = object->call(SNAME("get_vframes"));
 
 		Vector2 coords;
 		if (is_coords) {
@@ -479,8 +479,8 @@ void AnimationTrackEditSpriteFrame::draw_key(int p_index, float p_pixels_sec, in
 
 		region.size = texture->get_size();
 
-		if (bool(object->call("is_region"))) {
-			region = Rect2(object->call("get_region_rect"));
+		if (bool(object->call(SNAME("is_region")))) {
+			region = Rect2(object->call(SNAME("get_region_rect")));
 		}
 
 		if (hframes > 1) {
@@ -494,7 +494,7 @@ void AnimationTrackEditSpriteFrame::draw_key(int p_index, float p_pixels_sec, in
 		region.position.y += region.size.y * coords.y;
 
 	} else if (Object::cast_to<AnimatedSprite2D>(object) || Object::cast_to<AnimatedSprite3D>(object)) {
-		Ref<SpriteFrames> sf = object->call("get_sprite_frames");
+		Ref<SpriteFrames> sf = object->call(SNAME("get_sprite_frames"));
 		if (sf.is_null()) {
 			AnimationTrackEdit::draw_key(p_index, p_pixels_sec, p_x, p_selected, p_clip_left, p_clip_right);
 			return;

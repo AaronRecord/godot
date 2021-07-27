@@ -420,7 +420,7 @@ void ShaderEditor::ensure_select_current() {
 		if (!ste)
 			return;
 		Ref<Shader> shader = ste->get_edited_shader();
-		get_scene()->get_root_node()->call("_resource_selected",shader);
+		get_scene()->get_root_node()->call(SNAME("_resource_selected"),shader);
 	}*/
 }
 

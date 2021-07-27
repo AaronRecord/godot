@@ -760,7 +760,7 @@ void NativeScriptInstance::notification(int p_notification) {
 	Variant value = p_notification;
 	const Variant *args[1] = { &value };
 	Callable::CallError error;
-	call("_notification", args, 1, error);
+	call(SNAME("_notification"), args, 1, error);
 }
 
 String NativeScriptInstance::to_string(bool *r_valid) {
@@ -788,7 +788,7 @@ String NativeScriptInstance::to_string(bool *r_valid) {
 
 void NativeScriptInstance::refcount_incremented() {
 	Callable::CallError err;
-	call("_refcount_incremented", nullptr, 0, err);
+	call(SNAME("_refcount_incremented"), nullptr, 0, err);
 	if (err.error != Callable::CallError::CALL_OK && err.error != Callable::CallError::CALL_ERROR_INVALID_METHOD) {
 		ERR_PRINT("Failed to invoke _refcount_incremented - should not happen");
 	}
@@ -796,7 +796,7 @@ void NativeScriptInstance::refcount_incremented() {
 
 bool NativeScriptInstance::refcount_decremented() {
 	Callable::CallError err;
-	Variant ret = call("_refcount_decremented", nullptr, 0, err);
+	Variant ret = call(SNAME("_refcount_decremented"), nullptr, 0, err);
 	if (err.error != Callable::CallError::CALL_OK && err.error != Callable::CallError::CALL_ERROR_INVALID_METHOD) {
 		ERR_PRINT("Failed to invoke _refcount_decremented - should not happen");
 		return true; // assume we can destroy the object

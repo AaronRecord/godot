@@ -1075,12 +1075,12 @@ void EditorAudioBuses::_update_bus(int p_index) {
 		return;
 	}
 
-	bus_hb->get_child(p_index)->call("update_bus");
+	bus_hb->get_child(p_index)->call(SNAME("update_bus"));
 }
 
 void EditorAudioBuses::_update_sends() {
 	for (int i = 0; i < bus_hb->get_child_count(); i++) {
-		bus_hb->get_child(i)->call("update_send");
+		bus_hb->get_child(i)->call(SNAME("update_send"));
 	}
 }
 

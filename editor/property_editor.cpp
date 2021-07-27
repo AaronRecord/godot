@@ -78,7 +78,7 @@ void EditorResourceConversionPlugin::_bind_methods() {
 
 String EditorResourceConversionPlugin::converts_to() const {
 	if (get_script_instance()) {
-		return get_script_instance()->call("_converts_to");
+		return get_script_instance()->call(SNAME("_converts_to"));
 	}
 
 	return "";
@@ -86,7 +86,7 @@ String EditorResourceConversionPlugin::converts_to() const {
 
 bool EditorResourceConversionPlugin::handles(const Ref<Resource> &p_resource) const {
 	if (get_script_instance()) {
-		return get_script_instance()->call("_handles", p_resource);
+		return get_script_instance()->call(SNAME("_handles"), p_resource);
 	}
 
 	return false;
@@ -94,7 +94,7 @@ bool EditorResourceConversionPlugin::handles(const Ref<Resource> &p_resource) co
 
 Ref<Resource> EditorResourceConversionPlugin::convert(const Ref<Resource> &p_resource) const {
 	if (get_script_instance()) {
-		return get_script_instance()->call("_convert", p_resource);
+		return get_script_instance()->call(SNAME("_convert"), p_resource);
 	}
 
 	return Ref<Resource>();
@@ -275,7 +275,7 @@ void CustomPropertyEditor::_menu_option(int p_which) {
 					ERR_BREAK(!res);
 					if (owner && hint == PROPERTY_HINT_RESOURCE_TYPE && hint_text == "Script") {
 						//make visual script the right type
-						res->call("set_instance_base_type", owner->get_class());
+						res->call(SNAME("set_instance_base_type"), owner->get_class());
 					}
 
 					v = obj;

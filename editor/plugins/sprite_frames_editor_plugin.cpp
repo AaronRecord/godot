@@ -625,7 +625,7 @@ void SpriteFramesEditor::_animation_name_edited() {
 	undo_redo->add_undo_method(frames, "rename_animation", name, edited_anim);
 
 	for (Node *E : nodes) {
-		String current = E->call("get_animation");
+		String current = E->call(SNAME("get_animation"));
 		undo_redo->add_do_method(E, "set_animation", name);
 		undo_redo->add_undo_method(E, "set_animation", edited_anim);
 	}
@@ -656,7 +656,7 @@ void SpriteFramesEditor::_animation_add() {
 	undo_redo->add_undo_method(this, "_update_library");
 
 	for (Node *E : nodes) {
-		String current = E->call("get_animation");
+		String current = E->call(SNAME("get_animation"));
 		undo_redo->add_do_method(E, "set_animation", name);
 		undo_redo->add_undo_method(E, "set_animation", current);
 	}

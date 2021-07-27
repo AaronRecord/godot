@@ -737,7 +737,7 @@ bool CanvasItemEditor::_select_click_on_item(CanvasItem *item, Point2 p_click_po
 			// Reselect
 			if (Engine::get_singleton()->is_editor_hint()) {
 				selected_from_canvas = true;
-				editor->call("edit_node", item);
+				editor->call(SNAME("edit_node"), item);
 			}
 		}
 	}
@@ -1881,7 +1881,7 @@ bool CanvasItemEditor::_gui_input_scale(const Ref<InputEvent> &p_event) {
 			Point2 drag_to_local = simple_xform.xform(drag_to);
 			Point2 offset = drag_to_local - drag_from_local;
 
-			Size2 scale = canvas_item->call("get_scale");
+			Size2 scale = canvas_item->call(SNAME("get_scale"));
 			Size2 original_scale = scale;
 			float ratio = scale.y / scale.x;
 			if (drag_type == DRAG_SCALE_BOTH) {
@@ -1919,7 +1919,7 @@ bool CanvasItemEditor::_gui_input_scale(const Ref<InputEvent> &p_event) {
 				}
 			}
 
-			canvas_item->call("set_scale", scale);
+			canvas_item->call(SNAME("set_scale"), scale);
 			return true;
 		}
 

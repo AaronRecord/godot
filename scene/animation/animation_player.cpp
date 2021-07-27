@@ -625,7 +625,7 @@ void AnimationPlayer::_animation_process_animation(AnimationData *p_anim, float 
 
 					Ref<AudioStream> stream = a->audio_track_get_key_stream(i, idx);
 					if (!stream.is_valid()) {
-						nc->node->call("stop");
+						nc->node->call(SNAME("stop"));
 						nc->audio_playing = false;
 						playing_caches.erase(nc);
 					} else {
@@ -635,14 +635,14 @@ void AnimationPlayer::_animation_process_animation(AnimationData *p_anim, float 
 						float len = stream->get_length();
 
 						if (start_ofs > len - end_ofs) {
-							nc->node->call("stop");
+							nc->node->call(SNAME("stop"));
 							nc->audio_playing = false;
 							playing_caches.erase(nc);
 							continue;
 						}
 
-						nc->node->call("set_stream", stream);
-						nc->node->call("play", start_ofs);
+						nc->node->call(SNAME("set_stream"), stream);
+						nc->node->call(SNAME("play"), start_ofs);
 
 						nc->audio_playing = true;
 						playing_caches.insert(nc);
@@ -664,7 +664,7 @@ void AnimationPlayer::_animation_process_animation(AnimationData *p_anim, float 
 
 						Ref<AudioStream> stream = a->audio_track_get_key_stream(i, idx);
 						if (!stream.is_valid()) {
-							nc->node->call("stop");
+							nc->node->call(SNAME("stop"));
 							nc->audio_playing = false;
 							playing_caches.erase(nc);
 						} else {
@@ -672,8 +672,8 @@ void AnimationPlayer::_animation_process_animation(AnimationData *p_anim, float 
 							float end_ofs = a->audio_track_get_key_end_offset(i, idx);
 							float len = stream->get_length();
 
-							nc->node->call("set_stream", stream);
-							nc->node->call("play", start_ofs);
+							nc->node->call(SNAME("set_stream"), stream);
+							nc->node->call(SNAME("play"), start_ofs);
 
 							nc->audio_playing = true;
 							playing_caches.insert(nc);
@@ -702,7 +702,7 @@ void AnimationPlayer::_animation_process_animation(AnimationData *p_anim, float 
 
 						if (stop) {
 							//time to stop
-							nc->node->call("stop");
+							nc->node->call(SNAME("stop"));
 							nc->audio_playing = false;
 							playing_caches.erase(nc);
 						}
@@ -1341,7 +1341,7 @@ void AnimationPlayer::_animation_changed() {
 void AnimationPlayer::_stop_playing_caches() {
 	for (Set<TrackNodeCache *>::Element *E = playing_caches.front(); E; E = E->next()) {
 		if (E->get()->node && E->get()->audio_playing) {
-			E->get()->node->call("stop");
+			E->get()->node->call(SNAME("stop"));
 		}
 		if (E->get()->node && E->get()->animation_playing) {
 			AnimationPlayer *player = Object::cast_to<AnimationPlayer>(E->get()->node);

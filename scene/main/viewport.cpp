@@ -2113,7 +2113,7 @@ void Viewport::_gui_input_event(Ref<InputEvent> p_event) {
 								is_tooltip_shown = true;
 							}
 						} else {
-							Variant t = gui.tooltip_popup->call("get_tooltip_text");
+							Variant t = gui.tooltip_popup->call(SNAME("get_tooltip_text"));
 
 							if (t.get_type() == Variant::STRING) {
 								if (tooltip == String(t)) {
@@ -2740,7 +2740,7 @@ void Viewport::input_text(const String &p_text) {
 	}
 
 	if (gui.key_focus) {
-		gui.key_focus->call("set_text", p_text);
+		gui.key_focus->call(SNAME("set_text"), p_text);
 	}
 }
 

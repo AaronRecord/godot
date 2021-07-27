@@ -218,7 +218,7 @@ protected:
 			return true;
 		}
 
-		Dictionary d = script->call("get_variable_info", var);
+		Dictionary d = script->call(SNAME("get_variable_info"), var);
 
 		if (String(p_name) == "type") {
 			Dictionary dc = d.duplicate();
@@ -4197,7 +4197,7 @@ void VisualScriptEditor::_member_option(int p_option) {
 				undo_redo->create_action(TTR("Remove Variable"));
 				undo_redo->add_do_method(script.ptr(), "remove_variable", name);
 				undo_redo->add_undo_method(script.ptr(), "add_variable", name, script->get_variable_default_value(name));
-				undo_redo->add_undo_method(script.ptr(), "set_variable_info", name, script->call("get_variable_info", name)); //return as dict
+				undo_redo->add_undo_method(script.ptr(), "set_variable_info", name, script->call(SNAME("get_variable_info"), name)); //return as dict
 				undo_redo->add_do_method(this, "_update_members");
 				undo_redo->add_undo_method(this, "_update_members");
 				undo_redo->commit_action();

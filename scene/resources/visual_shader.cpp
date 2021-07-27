@@ -265,18 +265,18 @@ void VisualShaderNodeCustom::update_ports() {
 
 	input_ports.clear();
 	if (get_script_instance()->has_method("_get_input_port_count")) {
-		int input_port_count = (int)get_script_instance()->call("_get_input_port_count");
+		int input_port_count = (int)get_script_instance()->call(SNAME("_get_input_port_count"));
 		bool has_name = get_script_instance()->has_method("_get_input_port_name");
 		bool has_type = get_script_instance()->has_method("_get_input_port_type");
 		for (int i = 0; i < input_port_count; i++) {
 			Port port;
 			if (has_name) {
-				port.name = (String)get_script_instance()->call("_get_input_port_name", i);
+				port.name = (String)get_script_instance()->call(SNAME("_get_input_port_name"), i);
 			} else {
 				port.name = "in" + itos(i);
 			}
 			if (has_type) {
-				port.type = (int)get_script_instance()->call("_get_input_port_type", i);
+				port.type = (int)get_script_instance()->call(SNAME("_get_input_port_type"), i);
 			} else {
 				port.type = (int)PortType::PORT_TYPE_SCALAR;
 			}
@@ -285,18 +285,18 @@ void VisualShaderNodeCustom::update_ports() {
 	}
 	output_ports.clear();
 	if (get_script_instance()->has_method("_get_output_port_count")) {
-		int output_port_count = (int)get_script_instance()->call("_get_output_port_count");
+		int output_port_count = (int)get_script_instance()->call(SNAME("_get_output_port_count"));
 		bool has_name = get_script_instance()->has_method("_get_output_port_name");
 		bool has_type = get_script_instance()->has_method("_get_output_port_type");
 		for (int i = 0; i < output_port_count; i++) {
 			Port port;
 			if (has_name) {
-				port.name = (String)get_script_instance()->call("_get_output_port_name", i);
+				port.name = (String)get_script_instance()->call(SNAME("_get_output_port_name"), i);
 			} else {
 				port.name = "out" + itos(i);
 			}
 			if (has_type) {
-				port.type = (int)get_script_instance()->call("_get_output_port_type", i);
+				port.type = (int)get_script_instance()->call(SNAME("_get_output_port_type"), i);
 			} else {
 				port.type = (int)PortType::PORT_TYPE_SCALAR;
 			}
@@ -308,7 +308,7 @@ void VisualShaderNodeCustom::update_ports() {
 String VisualShaderNodeCustom::get_caption() const {
 	ERR_FAIL_COND_V(!get_script_instance(), "");
 	if (get_script_instance()->has_method("_get_name")) {
-		return (String)get_script_instance()->call("_get_name");
+		return (String)get_script_instance()->call(SNAME("_get_name"));
 	}
 	return "Unnamed";
 }
@@ -353,7 +353,7 @@ String VisualShaderNodeCustom::generate_code(Shader::Mode p_mode, VisualShader::
 		output_vars.push_back(p_output_vars[i]);
 	}
 	String code = "	{\n";
-	String _code = (String)get_script_instance()->call("_get_code", input_vars, output_vars, (int)p_mode, (int)p_type);
+	String _code = (String)get_script_instance()->call(SNAME("_get_code"), input_vars, output_vars, (int)p_mode, (int)p_type);
 	bool nend = _code.ends_with("\n");
 	_code = _code.insert(0, "		");
 	_code = _code.replace("\n", "\n		");
@@ -372,7 +372,7 @@ String VisualShaderNodeCustom::generate_global_per_node(Shader::Mode p_mode, Vis
 	ERR_FAIL_COND_V(!get_script_instance(), "");
 	if (get_script_instance()->has_method("_get_global_code")) {
 		String code = "// " + get_caption() + "\n";
-		code += (String)get_script_instance()->call("_get_global_code", (int)p_mode);
+		code += (String)get_script_instance()->call(SNAME("_get_global_code"), (int)p_mode);
 		code += "\n";
 		return code;
 	}
@@ -1390,9 +1390,9 @@ Error VisualShader::_write_node(Type type, StringBuilder &global_code, StringBui
 			if (in_type == VisualShaderNode::PORT_TYPE_SAMPLER && out_type == VisualShaderNode::PORT_TYPE_SAMPLER) {
 				VisualShaderNode *ptr = const_cast<VisualShaderNode *>(graph[type].nodes[from_node].node.ptr());
 				if (ptr->has_method("get_input_real_name")) {
-					inputs[i] = ptr->call("get_input_real_name");
+					inputs[i] = ptr->call(SNAME("get_input_real_name"));
 				} else if (ptr->has_method("get_uniform_name")) {
-					inputs[i] = ptr->call("get_uniform_name");
+					inputs[i] = ptr->call(SNAME("get_uniform_name"));
 				} else {
 					inputs[i] = "";
 				}

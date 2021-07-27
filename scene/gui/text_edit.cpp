@@ -1694,7 +1694,7 @@ void TextEdit::_consume_backspace_for_pair_symbol(int prev_line, int prev_column
 void TextEdit::backspace() {
 	ScriptInstance *si = get_script_instance();
 	if (si && si->has_method("_backspace")) {
-		si->call("_backspace");
+		si->call(SNAME("_backspace"));
 		return;
 	}
 

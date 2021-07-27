@@ -43,7 +43,7 @@ ResourceSaverGetResourceIDForPath ResourceSaver::save_get_id_for_path = nullptr;
 
 Error ResourceFormatSaver::save(const String &p_path, const RES &p_resource, uint32_t p_flags) {
 	if (get_script_instance() && get_script_instance()->has_method("_save")) {
-		return (Error)get_script_instance()->call("_save", p_path, p_resource, p_flags).operator int64_t();
+		return (Error)get_script_instance()->call(SNAME("_save"), p_path, p_resource, p_flags).operator int64_t();
 	}
 
 	return ERR_METHOD_NOT_FOUND;
@@ -51,7 +51,7 @@ Error ResourceFormatSaver::save(const String &p_path, const RES &p_resource, uin
 
 bool ResourceFormatSaver::recognize(const RES &p_resource) const {
 	if (get_script_instance() && get_script_instance()->has_method("_recognize")) {
-		return get_script_instance()->call("_recognize", p_resource);
+		return get_script_instance()->call(SNAME("_recognize"), p_resource);
 	}
 
 	return false;
@@ -59,7 +59,7 @@ bool ResourceFormatSaver::recognize(const RES &p_resource) const {
 
 void ResourceFormatSaver::get_recognized_extensions(const RES &p_resource, List<String> *p_extensions) const {
 	if (get_script_instance() && get_script_instance()->has_method("_get_recognized_extensions")) {
-		PackedStringArray exts = get_script_instance()->call("_get_recognized_extensions", p_resource);
+		PackedStringArray exts = get_script_instance()->call(SNAME("_get_recognized_extensions"), p_resource);
 
 		{
 			const String *r = exts.ptr();
